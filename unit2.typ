@@ -12,6 +12,9 @@
 #include "Unit2/open_closed.typ"
 #include "Unit2/operator_overloading.typ"
 #include "Unit2/properties.typ"
+#include "Unit2/Extension.typ"
+#include "Unit2/infix.typ"
+#include "Unit2/data_classes.typ"
 
 == Respuestas:
 
