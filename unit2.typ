@@ -15,6 +15,7 @@
 #include "Unit2/Extension.typ"
 #include "Unit2/infix.typ"
 #include "Unit2/data_classes.typ"
+#include "Unit2/companion.typ"
 
 == Respuestas:
 
