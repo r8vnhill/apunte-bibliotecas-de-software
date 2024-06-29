@@ -82,3 +82,59 @@ Para garantizar la calidad y usabilidad de una API, es fundamental que cumpla co
   - La implementación de la API debe estar respaldada por un conjunto exhaustivo de pruebas automatizadas.
   - Estas pruebas aseguran que los cambios nuevos no rompan casos de uso existentes, proporcionando confianza en la estabilidad y confiabilidad de la API.
 
+=== Bibliotecas de Software
+
+Claro, aquí tienes una versión mejor
+
+- *Definición*: 
+  - También conocidas como librerías.
+  - Son colecciones de código precompilado que proporcionan funciones, clases y procedimientos reutilizables.
+
+- *Funcionalidad*: 
+  - Facilitan la realización de tareas específicas o comunes en el desarrollo de software.
+  - Permiten a lxs desarrolladorxs reutilizar código existente, ahorrando tiempo y esfuerzo.
+
+- *API*:
+  - Las bibliotecas exponen una API que define cómo los clientes pueden interactuar con ellas.
+  - La API proporciona los bloques de construcción necesarios para integrar la funcionalidad de la biblioteca en aplicaciones más grandes.
+
+Las bibliotecas de software son esenciales para la eficiencia y efectividad en el desarrollo de aplicaciones, proporcionando soluciones probadas y optimizadas para problemas comunes.
+
+==== Bibliotecas vs Aplicaciones
+
+*Bibliotecas:*
+- *Funcionalidad*:
+  - Proveen funcionalidades específicas y reutilizables.
+  - No son ejecutables por sí mismas; requieren ser incluidas en una aplicación.
+  - Ofrecen una API para que lxs desarrolladorxs interactúen con sus funcionalidades.
+
+*Aplicaciones:*
+- *Propósito*:
+  - Resuelven un problema o realizan tareas específicas de principio a fin.
+  - Son ejecutables autónomos; pueden funcionar independientemente.
+  - Generalmente proporcionan una interfaz de usuario (UI) o una interfaz de línea de comandos (CLI) para que lxs usuarios finales interactúen.
+
+Las bibliotecas y las aplicaciones juegan roles complementarios en el desarrollo de software, con las bibliotecas proporcionando herramientas y funcionalidades reutilizables que las aplicaciones integran y utilizan para cumplir con tareas completas y específicas.
+
+==== Principios de Diseño de Bibliotecas
+
+- *Interfaces Simples y Fáciles de Entender*:
+  - Mantén las interfaces de la biblioteca lo más simples posible.
+  - Facilita a lxs usuarios la comprensión y el uso de las funcionalidades proporcionadas.
+
+- *Coherencia en Patrones de Diseño*:
+  - Sigue patrones de diseño coherentes en toda la biblioteca.
+  - Asegura que lxs usuarios puedan predecir el comportamiento y uso de diferentes componentes.
+
+- *Componentes Independientes y Reutilizables*:
+  - Diseña componentes que sean independientes entre sí.
+  - Facilita la reutilización de componentes en diferentes contextos sin dependencias innecesarias.
+
+- *Extensibilidad*:
+  - Permite a los usuarios ampliar la funcionalidad de la biblioteca sin necesidad de modificar el código fuente.
+  - Utiliza patrones de diseño como herencia, composición y polimorfismo para ofrecer extensibilidad.
+
+- *Buena Documentación y Ejemplos de Uso*:
+  - Proporciona documentación clara y completa.
+  - Incluye ejemplos de uso prácticos que muestren cómo utilizar las diferentes funcionalidades de la biblioteca.
+  - Asegura que la documentación esté actualizada con cada nueva versión de la biblioteca.
