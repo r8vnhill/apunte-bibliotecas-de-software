@@ -6,7 +6,7 @@
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
 #show: project.with(
-  title: "Metodologías de Diseño y Programación Avanzadas",
+  title: "Diseño e implementación de bibliotecas de software",
   authors: (
     (name: "Ignacio Slater Muñoz", email: "reachme@ravenhill.cl"),
   ),
@@ -16,6 +16,12 @@
 
 #set quote(block: true)
 #set raw(lang: "kotlin")
+#show raw.where(block: true): block.with(
+  fill: luma(240),
+  inset: 10pt,
+  radius: 4pt,
+)
+
 #outline(depth: 3, indent: true)
 
 #include "opening.typ"

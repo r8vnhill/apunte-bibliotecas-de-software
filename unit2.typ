@@ -16,13 +16,14 @@
 #include "Unit2/infix.typ"
 #include "Unit2/data_classes.typ"
 #include "Unit2/companion.typ"
+#include "Unit2/enums.typ"
 
 == Respuestas:
 
 *Ejercicio: Implementación de un Gestor de Eventos*
 
 ```kotlin
-object EventManager {
+object EventManager {   
     val events = mutableListOf<String>()
 
     fun addEvent(event: String) {
@@ -32,5 +33,57 @@ object EventManager {
     fun getEvents(): List<String> {
         return events.toList()
     }
+}
+```
+
+*Ejercicio: Interfaz y Enumeración de Acciones del Juego*
+
+```
+class Player(health: Int, mana: Int) {
+    var health = health
+        private set
+    var mana = mana
+        private set
+
+    fun increaseHealth(amount: Int) {
+        health += amount
+    }
+
+    fun decreaseHealth(amount: Int) {
+        health -= amount
+    }
+
+    fun increaseMana(amount: Int) {
+        mana += amount
+    }
+
+    fun decreaseMana(amount: Int) {
+        mana -= amount
+    }
+}
+```
+
+```
+enum class GameEvent : GameAction {
+    HEALTH_BOOST {
+        override fun execute(player: Player) {
+            player.increaseHealth(20)
+        }
+    },
+    MANA_DRAIN {
+        override fun execute(player: Player) {
+            player.decreaseMana(15)
+        }
+    },
+    POISON {
+        override fun execute(player: Player) {
+            player.decreaseHealth(10)
+        }
+    },
+    ENERGY_SURGE {
+        override fun execute(player: Player) {
+            player.increaseMana(20)
+        }
+    };
 }
 ```
