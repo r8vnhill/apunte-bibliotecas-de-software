@@ -12,8 +12,6 @@
 #include "Unit1/NullSafety.typ"
 #include "Unit1/Input.typ"
 #include "Unit1/Clean.typ"
-#include "Unit1/BuildSystems.typ"
-#include "Unit1/StaticAnalysis.typ"
 
 == Respuestas
 

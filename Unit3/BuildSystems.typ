@@ -4,7 +4,7 @@
 
 #let definition = thmbox("definition", "Definición", inset: (x: 1.2em, top: 1em))
 
-== Build systems
+= Unidad 3: Build systems
 
 #definition("Build system")[
   Un sistema de compilación es una herramienta de software que automatiza el proceso de convertir 
@@ -15,7 +15,7 @@
 Estos sistemas son esenciales para la gestión eficiente de proyectos de software, especialmente en 
 entornos donde la escalabilidad y la reproducibilidad son importantes.
 
-=== Usos Comunes
+== Usos Comunes
 
 1. *Configuración Reutilizable*: Permite definir el proceso de compilación una sola vez y reutilizar
   esa configuración en múltiples proyectos, lo que ahorra tiempo y asegura consistencia a través de 
@@ -33,7 +33,7 @@ entornos donde la escalabilidad y la reproducibilidad son importantes.
   continua (CI) y despliegue continuo (CD), permitiendo que los cambios en el código sean
   automáticamente compilados, probados y desplegados.
 
-=== Ejemplos de Build Systems
+== Ejemplos de Build Systems
 
 - *Make*: Uno de los primeros sistemas de compilación, ampliamente usado en proyectos de C y C++.
 - *Maven y Gradle*: Muy utilizados en proyectos Java y Android por su poderosa gestión de
@@ -42,14 +42,14 @@ entornos donde la escalabilidad y la reproducibilidad son importantes.
 - *Webpack y Babel*: Populares en el desarrollo de aplicaciones web modernas, manejan la
   transformación y empaquetado de módulos JavaScript.
 
-=== Gradle
+== Gradle
 
 Gradle es una herramienta poderosa y flexible utilizada para automatizar el proceso de construcción 
 de software, incluyendo compilación, prueba, despliegue y empaquetado. Su diseño modular y su 
 capacidad de personalización lo hacen adecuado para una amplia variedad de proyectos, desde 
 aplicaciones móviles hasta grandes sistemas empresariales.
 
-==== Características Principales
+=== Características Principales
 
 1. *DSL Basado en Groovy y Kotlin*: Gradle utiliza lenguajes de configuración específicos del 
   dominio (DSL) basado en Groovy y Kotlin. Esto permite a los desarrolladores escribir scripts de 
@@ -70,7 +70,7 @@ aplicaciones móviles hasta grandes sistemas empresariales.
 5. *Gestión de Dependencias Avanzada*: Ofrece un robusto sistema de gestión de dependencias que 
   simplifica el manejo de librerías y módulos necesarios para el desarrollo de proyectos.
 
-==== A Taste of Gradle
+=== A Taste of Gradle
 
 ```kotlin
 // build.gradle.kts
@@ -98,7 +98,44 @@ kotlin {
 }
 ```
 
-==== Configuración de Repositorios en Gradle
+=== `gradle.properties`
+
+El archivo `gradle.properties` es un archivo de configuración para Gradle que utiliza el formato `clave=valor` para definir las propiedades. Este archivo permite definir propiedades que actúan como variables de entorno durante la compilación. Es una buena práctica almacenar valores como las versiones de las librerías utilizadas en el proyecto en este archivo.
+
+```properties
+kotlin.code.style=official
+kotlin.version=2.0.0
+build-systems-kt.version=1.0.0
+
+org.gradle.parallel=true
+org.gradle.caching=true
+
+detekt.version=1.23.1
+dokka.version=1.9.10
+kotest.version=5.9.0
+kotlinx.datetime.version=0.4.1
+```
+
+- `kotlin.code.style=official`: 
+  - Define el estilo de código de Kotlin a utilizar, en este caso, el estilo oficial recomendado por Kotlin.
+- `kotlin.version=2.0.0`: 
+  - Especifica la versión de Kotlin a utilizar en el proyecto.
+- `build-systems-kt.version=1.0.0`: 
+  - Define la versión del proyecto.
+- `org.gradle.parallel=true`: 
+  - Habilita la construcción en paralelo para mejorar el rendimiento.
+- `org.gradle.caching=true`: 
+  - Habilita la caché de Gradle para acelerar la construcción reutilizando los resultados de compilaciones anteriores.
+- `detekt.version=1.23.1`: 
+  - Especifica la versión de Detekt, una herramienta de análisis estático de código para Kotlin.
+- `dokka.version=1.9.10`: 
+  - Define la versión de Dokka, una herramienta de documentación para Kotlin.
+- `kotest.version=5.9.0`: 
+  - Especifica la versión de Kotest, un framework de pruebas para Kotlin.
+- `kotlinx.datetime.version=0.4.1`: 
+  - Define la versión de `kotlinx-datetime`, una librería de fecha y hora para Kotlin.
+
+=== Configuración de Repositorios en Gradle
 
 En Gradle, los repositorios especifican las ubicaciones de las librerías necesarias para un 
 proyecto. La configuración de los repositorios determina el orden en que Gradle buscará las 
@@ -127,18 +164,18 @@ repositories {
   proyectos Maven y Gradle en todo el mundo. Contiene una vasta cantidad de librerías para Java, 
   Kotlin y Scala.
 
-2. *Google*: Especialmente importante para proyectos Android, el repositorio de Google alberga 
+1. *Google*: Especialmente importante para proyectos Android, el repositorio de Google alberga 
   librerías y herramientas específicas necesarias para el desarrollo en Android.
 
-3. *Repositorio Maven Personalizado*: Utilizado para alojar artefactos privados o de terceros no
+1. *Repositorio Maven Personalizado*: Utilizado para alojar artefactos privados o de terceros no
   disponibles en repositorios públicos. Es ideal para empresas que necesitan un control más estricto
   sobre las librerías utilizadas en sus proyectos.
 
-4. *Seguridad de Credenciales*: Es vital no "hardcodear" credenciales directamente en los archivos
+1. *Seguridad de Credenciales*: Es vital no "hardcodear" credenciales directamente en los archivos
   de configuración. Utiliza variables de entorno para gestionar las credenciales de forma segura,
   como se muestra en el ejemplo. Esto ayuda a prevenir la exposición de información sensible.
 
-5. *Flat Directory Repository*: Un repositorio de directorio plano se usa para incluir librerías que 
+1. *Flat Directory Repository*: Un repositorio de directorio plano se usa para incluir librerías que 
   se encuentran directamente en el sistema de archivos local del proyecto, sin un repositorio Maven 
   o Ivy. Es útil para librerías que no están disponibles en ningún repositorio remoto o para desarrollo y pruebas rápidas.
 
@@ -152,7 +189,7 @@ repositories {
   configures repositorios personalizados para garantizar que las transferencias de datos sean
   cifradas.
 
-==== Dependencias
+=== Dependencias
 
 #definition("Dependencia")[
   Las dependencias son componentes externos o bibliotecas que un proyecto requiere para compilar y 
@@ -162,34 +199,20 @@ repositories {
 Gradle facilita la automatización de la descarga e integración de estas dependencias desde
 repositorios configurados, ya sean locales o remotos.
 
-Gradle define varias configuraciones que determinan cómo y cuándo las dependencias están disponibles
-para tu proyecto durante su ciclo de vida:
+```kotlin	
+dependencies {
+    implementation(kotlin("reflect"))
+    testImplementation("group:name:version")
+    implementation(group = "group", name = "name", version = "version")
+}
 
-- *`compileOnly`*: Las dependencias están disponibles solo durante la fase de compilación. No se 
-  incluyen en el tiempo de ejecución, útil para anotaciones, preprocesadores, etc.
-- *`runtimeOnly`*: Las dependencias solo están disponibles en tiempo de ejecución. No están
-  disponibles durante la compilación, adecuadas para implementaciones de interfaces que son
-  proporcionadas en tiempo de ejecución.
-- *`implementation`*: Las dependencias están disponibles tanto en tiempo de compilación como en 
-  tiempo de ejecución. No se exponen a los consumidores del proyecto, lo que ayuda a mantener el 
-  encapsulamiento.
-- *`api`*: Similar a `implementation`, pero estas dependencias también se exponen a los
-  consumidores, lo que significa que cualquier módulo que dependa de tu biblioteca tendrá acceso a
-  ellas.
-- *`testCompileOnly`*: Dependencias que solo son necesarias para compilar el código de prueba, no
-  para ejecutarlo.
-- *`testRuntimeOnly`*: Dependencias que son necesarias solo en el tiempo de ejecución de las
-  pruebas.
-- *`testImplementation`*: Dependencias que son necesarias tanto para compilar como para ejecutar las
-  pruebas.
-- *`testApi`*: Dependencias de la API utilizadas en el código de prueba, disponibles tanto para la
-  compilación como para la ejecución de pruebas.
+```
 
 En el siguiente ejemplo de configuración de Gradle, definimos algunas dependencias que se utilizarán
 en el curso, incluyendo la librería de reflexión de Kotlin y varias librerías de Kotest para pruebas:
 
 ```kotlin
-val kotestVersion = "5.8.0"
+val kotestVersion = extra["kotest.version"] as String
 
 dependencies {
     implementation(kotlin("reflect"))
@@ -199,7 +222,7 @@ dependencies {
 }
 ```
 
-==== Tasks
+=== Tasks
 
 En Gradle, las tareas son la unidad fundamental de trabajo. Son conjuntos de instrucciones
 ejecutables que realizan acciones específicas como compilar código, correr tests, construir un
@@ -297,7 +320,7 @@ tu proyecto.
    Imprime el tamaño total calculado en la consola.
 #line(length: 100%)
 
-==== Plugins
+=== Plugins
 
 Los plugins son componentes esenciales en Gradle que extienden sus capacidades al introducir nuevas
 tareas, configuraciones y funcionalidades a los scripts de build. Permiten modularizar y reutilizar 
