@@ -4,17 +4,6 @@
 
 #let definition = thmbox("definition", "Definición", inset: (x: 1.2em, top: 1em))
 
-= Unidad 3: Build systems
-
-#definition("Build system")[
-  Un sistema de compilación es una herramienta de software que automatiza el proceso de convertir 
-  código fuente en un ejecutable o una librería, realizando tareas como la compilación de código, 
-  gestión de dependencias y empaquetado de software.
-]
-
-Estos sistemas son esenciales para la gestión eficiente de proyectos de software, especialmente en 
-entornos donde la escalabilidad y la reproducibilidad son importantes.
-
 == Usos Comunes
 
 1. *Configuración Reutilizable*: Permite definir el proceso de compilación una sola vez y reutilizar
@@ -222,129 +211,150 @@ dependencies {
 }
 ```
 
-=== Tasks
+=== `settings.gradle.kts`
 
-En Gradle, las tareas son la unidad fundamental de trabajo. Son conjuntos de instrucciones
-ejecutables que realizan acciones específicas como compilar código, correr tests, construir un
-archivo JAR, publicar a un repositorio MAVEN, entre otras.
-
-Gradle proporciona varias tareas predeterminadas que están configuradas para realizar acciones 
-comunes de manera eficiente. Además, los usuarios pueden definir tareas personalizadas para 
-adaptarse a necesidades específicas del proyecto.
-
-*Ejemplos de Tareas en Gradle*
-
-1. *Ejecutar Tests con JUnit*:
-   Gradle facilita la configuración para utilizar frameworks de testing como JUnit. Por ejemplo, 
-   para configurar Gradle para usar el motor de JUnit Platform en la ejecución de tests:
-   ```kotlin
-   tasks.test {
-       useJUnitPlatform()
-   }
-   ```
-   Nota: Otros frameworks de testing como Kotest utilizan el motor de JUnit, por lo que esta
-   configuración también se aplica a ellos.
-
-2. *Copiar Archivos*:
-   Puedes crear tareas para copiar archivos de un directorio a otro. Este ejemplo muestra cómo 
-   definir una tarea para copiar recursos:
-   ```kotlin
-   tasks.create<Copy>("copy") {
-       description = "Copies resources to the output directory"
-       group = "Custom"
-       from("src")
-       into("dst")
-   }
-   ```
-
-3. *Calcular un Número de Fibonacci*:
-   Este ejemplo ilustra cómo definir una tarea personalizada para calcular el 12º número de 
-   Fibonacci:
-   ```kotlin
-   tasks.register("Fib") {
-       var first = 0
-       var second = 1
-       doFirst {
-           println("Calculating the 12th Fibonacci number...")
-           for (i in 1..11) {
-               second += first
-               first = second - first
-           }
-       }
-       doLast {
-           println("The 12th Fibonacci number is $second")
-       }
-   }
-   ```
-   - `doFirst`: Se ejecuta antes de las demás acciones en la tarea.
-   - `doLast`: Se ejecuta después de todas las demás acciones en la tarea.
-
-Para ejecutar tareas en Gradle, utiliza el Gradle Wrapper, que garantiza que todos los 
-desarrolladores del proyecto usen la misma versión de Gradle, proporcionando consistencia a través 
-del entorno de desarrollo:
-
-- *En sistemas Unix*:
-  ```bash
-  ./gradlew test
-  ./gradlew copy
-  ./gradlew Fib
-  ```
-
-- *En sistemas Windows*:
-  ```powershell
-  .\gradlew.bat test
-  .\gradlew.bat copy
-  .\gradlew.bat Fib
-  ```
-
-#line(length: 100%)
-
-*Ejercicio: Crear una Tarea de Gradle para Calcular el Tamaño del Proyecto Compilado*
-
-Desarrolla una tarea de Gradle que determine y reporte el tamaño total de los archivos compilados de
-tu proyecto.
-
-1. *Definición de la Tarea*:
-   Crea una nueva tarea en tu archivo `build.gradle.kts` que calcule el tamaño total de los archivos
-   en el directorio de clases compiladas de Kotlin.
-
-2. *Acceso a los Archivos Compilados*:
-   Utiliza el método `project.fileTree` para acceder a los archivos en el directorio de salida de 
-   compilación (`build/classes/kotlin/main`).
-
-3. *Cálculo del Tamaño*:
-   Itera sobre los archivos obtenidos y suma sus tamaños utilizando el método `length()` para
-   obtener el tamaño total en bytes. 
-
-4. *Reportar el Tamaño*:
-   Imprime el tamaño total calculado en la consola.
-#line(length: 100%)
-
-=== Plugins
-
-Los plugins son componentes esenciales en Gradle que extienden sus capacidades al introducir nuevas
-tareas, configuraciones y funcionalidades a los scripts de build. Permiten modularizar y reutilizar 
-configuraciones de construcción, evitando la duplicación de código en múltiples proyectos y 
-facilitando la gestión de procesos de construcción complejos.
-
-*Beneficios de los Plugins*
-
-- *Extensión de Funcionalidades*: Los plugins pueden añadir tareas específicas para compilar
-  código, ejecutar pruebas, generar documentación, entre otras.
-- *Reutilización de Configuraciones*: Facilitan la estandarización de las configuraciones de 
-  construcción a través de diferentes proyectos, mejorando la coherencia y la eficiencia.
-- *Automatización Mejorada*: Con los plugins, se puede automatizar desde la gestión de 
-  dependencias hasta la integración y despliegue continuos (CI/CD).
-
-*Ejemplos de Plugins en Gradle*
-
-En el curso, utilizaremos dos plugins, en particular habilitar el desarrollo en Kotlin y realizar 
-análisis estático de código. Aquí te mostramos cómo puedes aplicar estos plugins en tu archivo 
-`build.gradle.kts`:
+El archivo `settings.gradle.kts` se utiliza para configurar y gestionar los ajustes de configuración de un proyecto Gradle. Este archivo define la estructura de módulos del proyecto y puede incluir configuraciones adicionales para la gestión de plugins.
 
 ```kotlin
-plugins {
-    kotlin("jvm") version "1.9.23" // Plugin de Kotlin para soporte de JVM
-    id("io.gitlab.arturbosch.detekt") version "1.23.6" // Plugin para análisis estático de código Kotlin
+// El nombre del proyecto raíz
+rootProject.name = "build-systems-kt"
+
+// Incluye los subproyectos del proyecto raíz
+include(
+    ":subproject1", 
+    ":subproject2", 
+    ":subproject3"
+)
+```
+
+A continuación, un ejemplo más completo que incluye la configuración de la gestión de plugins:
+
+```kotlin
+// Define el nombre del proyecto raíz
+rootProject.name = "build-systems-kt"
+
+// Incluye los subproyectos
+include(":subproject1", ":subproject2", ":subproject3")
+
+pluginManagement {
+    // Define los repositorios para la resolución de plugins
+    repositories {
+        gradlePluginPortal()
+    }
+
+    // Configura los plugins con sus respectivas versiones
+    plugins {
+        kotlin("jvm") version extra["kotlin.version"] as String
+        id("io.gitlab.arturbosch.detekt") version extra["detekt.version"] as String
+    }
 }
+```
+
+- `rootProject.name = "build-systems-kt"`:
+  - Define el nombre del proyecto raíz, que es el identificador principal del proyecto en Gradle.
+  
+- `include(":subproject1", ":subproject2", ":subproject3")`:
+  - Incluye los subproyectos en el proyecto raíz. Cada subproyecto puede tener su propia configuración y código independiente.
+  
+- `pluginManagement`:
+  - Configura la gestión de plugins para el proyecto. Esto incluye la definición de los repositorios y las versiones de los plugins necesarios.
+  
+- `repositories { gradlePluginPortal() }`:
+  - Define el repositorio `gradlePluginPortal` para resolver y descargar los plugins utilizados en el proyecto.
+  
+- `plugins`:
+  - Especifica los plugins y sus versiones que serán utilizados en el proyecto. En este ejemplo, se utilizan los plugins de Kotlin JVM y Detekt con versiones definidas en el archivo `gradle.properties`.
+
+Aquí tienes la versión mejorada usando la sintaxis de Typst:
+
+=== `build.gradle.kts`
+
+El archivo `build.gradle.kts` es el script principal de Gradle que define las tareas y configuraciones de construcción del proyecto. En este archivo se especifican las dependencias, plugins, tareas personalizadas y otros ajustes necesarios para compilar y ejecutar el proyecto.
+
+```kotlin
+// Define los plugins que se aplicarán al proyecto raíz
+plugins {
+    kotlin("jvm")
+}
+
+// Configura el grupo y la versión para todos los proyectos
+allprojects {
+    group = "build-systems-kt"
+    version = extra["build-systems-kt.version"] as String
+}
+
+// Define el repositorio de Maven Central como fuente para las dependencias de los subproyectos
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+```
+
+- *plugins*: 
+  - Define los plugins que se aplicarán al proyecto raíz. 
+  - En este caso, se aplica el plugin de Kotlin para JVM.
+- *allprojects*: 
+  - Configura el grupo y la versión para todos los proyectos. 
+  - El grupo se establece como "build-systems-kt" y la versión se obtiene de las propiedades extra.
+- *subprojects*: 
+  - Define el repositorio de Maven Central como fuente para las dependencias de los subproyectos.
+  - Esto asegura que todas las dependencias necesarias para los subproyectos se puedan resolver desde Maven Central.
+
+==== `subproject1/build.gradle.kts`
+
+```kotlin
+val kotestVersion = extra["kotest.version"] as String
+val kotlinxDatetimeVersion = extra["kotlinx.datetime.version"] as String
+
+plugins {
+    id("io.gitlab.arturbosch.detekt")
+    kotlin("jvm")
+}
+
+dependencies {
+    implementation(kotlin("reflect"))
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDatetimeVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-framework-datatest:$kotestVersion")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+```
+
+- *kotestVersion* y *kotlinxDatetimeVersion*:
+  - Obtiene las versiones de Kotest y kotlinx-datetime de las propiedades extra.
+- *plugins*:
+  - Aplica el plugin de Detekt para análisis estático y el plugin de Kotlin para JVM.
+- *dependencies*:
+  - Define las dependencias necesarias para el subproyecto:
+    - `implementation(kotlin("reflect"))`: Añade la dependencia de reflexión de Kotlin.
+    - `implementation("org.jetbrains.kotlinx:kotlinx-datetime:$kotlinxDatetimeVersion")`: Añade la dependencia de kotlinx-datetime con la versión especificada.
+    - `testImplementation("io.kotest:kotest-property:$kotestVersion")`: Añade la dependencia de Kotest para pruebas de propiedades.
+    - `testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")`: Añade la dependencia de Kotest para JUnit5.
+    - `testImplementation("io.kotest:kotest-framework-datatest:$kotestVersion")`: Añade la dependencia de Kotest para pruebas basadas en datos.
+- *tasks.test*:
+  - Configura las pruebas para usar JUnit Platform.
+- *kotlin*:
+  - Configura el toolchain de JVM para usar la versión 17.
+  
+=== Construyendo el proyecto
+
+```powershell
+# Windows
+.\gradlew.bat :subproject1:build
+.\gradlew.bat build
+```
+
+```bash
+# Unix
+./gradlew :subproject1:build
+./gradlew build
 ```

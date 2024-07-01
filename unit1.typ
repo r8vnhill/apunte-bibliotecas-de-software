@@ -74,18 +74,3 @@ fun main() {
     }
 }
 ```
-
-*Ejercicio: Crear una Tarea de Gradle para Calcular el Tamaño del Proyecto Compilado*
-
-```kotlin	
-tasks.register("countCompiledSize") {
-    doLast {
-        val files = fileTree("build/classes/kotlin/main")
-        var size = 0L
-        for (file in files) {
-            size += file.length()
-        }
-        println("El tamaño del proyecto compilado es: $size bytes")
-    }
-}
-```

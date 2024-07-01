@@ -15,7 +15,6 @@
 #let definition = thmbox("definition", "Definición", inset: (x: 1.2em, top: 1em))
 
 #set quote(block: true)
-#set raw(lang: "kotlin")
 #show raw.where(block: true): block.with(
   fill: luma(240),
   inset: 10pt,
